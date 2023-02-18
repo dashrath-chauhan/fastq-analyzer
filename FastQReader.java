@@ -8,7 +8,7 @@ import java.util.zip.GZIPInputStream;
 
 public class FastQReader {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
     	
     	if (args.length != 2) {
             System.out.println("Usage: FastqCounter [--count-sequences | --count-nucleotides] example.fastq[.gz]");
