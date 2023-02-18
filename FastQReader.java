@@ -15,7 +15,7 @@ public class FastQReader {
         String filename = args[1];
         
         int sequenceCount = 0;
-	 long nucleotideCount = 0;
+	long nucleotideCount = 0;
 
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
