@@ -15,6 +15,7 @@ public class FastQReader {
         String filename = args[1];
         
         int sequenceCount = 0;
+	 long nucleotideCount = 0;
 
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
@@ -27,6 +28,8 @@ public class FastQReader {
                     }
                 } else if (line.startsWith("+")) {
                     inSequence = false;
+                } else if(inSequence) {
+                	nucleotideCount += line.length();
                 }
             }
         } catch (IOException e) {
@@ -35,6 +38,8 @@ public class FastQReader {
 
         if (flag.equals("--count-sequences")) {
         	System.out.println("Number of sequences in " + filename + ": " + sequenceCount);
+        } else if (flag.equals("--count-nucleotides")) {
+        	System.out.println("Total number of nucleotides in " + filename + ": " + nucleotideCount);
         } else {
             System.out.println("Usage: FastqCounter [--count-sequences | --count-nucleotides] input.fastq");
             System.exit(1);
