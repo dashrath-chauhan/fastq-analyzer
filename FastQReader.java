@@ -7,7 +7,7 @@ public class FastQReader {
     public static void main(String[] args) {
     	
     	if (args.length != 2) {
-            System.out.println("Usage: FastqCounter [--count-sequences | --count-nucleotides] input.fastq");
+            System.out.println("Usage: FastqCounter [--count-sequences | --count-nucleotides] example.fastq[.gz]");
             System.exit(1);
         }
 
@@ -16,8 +16,14 @@ public class FastQReader {
         
         int sequenceCount = 0;
 	long nucleotideCount = 0;
+	    
+    	InputStream inputStream = new FileInputStream(filename);
+        if (isCompressed) {
+	    System.out.println("Compressed file...");
+            inputStream = new GZIPInputStream(inputStream);
+        }
 
-        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
             String line;
             boolean inSequence = false;
             while ((line = br.readLine()) != null) {
@@ -41,7 +47,7 @@ public class FastQReader {
         } else if (flag.equals("--count-nucleotides")) {
         	System.out.println("Total number of nucleotides in " + filename + ": " + nucleotideCount);
         } else {
-            System.out.println("Usage: FastqCounter [--count-sequences | --count-nucleotides] input.fastq");
+            System.out.println("Usage: FastqCounter [--count-sequences | --count-nucleotides] example.fastq[.gz]");
             System.exit(1);
         }
     }
