@@ -20,6 +20,7 @@ public class FastQReader {
         
         int sequenceCount = 0;
 	long nucleotideCount = 0;
+	boolean isCompressed = filename.endsWith(".gz");
 	    
     	InputStream inputStream = new FileInputStream(filename);
         if (isCompressed) {
